@@ -2,13 +2,7 @@
 - hosts: all
   become: true
   tasks:
-
-        - name: is cron already running
-          shell: service cron status warn=false
-          register: _svc_cron
-          failed_when: _svc_cron.rc != 0 and ("unrecognized service" not in _svc_cron.stderr)
-          ignore_errors: true
-
-        - name: start cron if not running
-          service: name=cron state=started
-          when: _svc_cron.rc != 0 and ("unrecognized service" not in _svc_cron.stderr) 
+        - name: Start service cron, if not started
+          service:
+            name: cron
+            state: started
