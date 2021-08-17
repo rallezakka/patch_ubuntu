@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: true
+  gather_facts: yes
+  tasks:
+  - name: "Populate service facts"
+    service_facts:
+  - name: "See the service <cron> facts as they are"
+    debug:
+      msg: "{{ansible_facts.services['cron.service'].state}}"
+  - name: "Verify if cron is running!"
+    assert:
+      that:
+        - "'{{ansible_facts.services['cron.service'].state}}' == 'running'"
+      fail_msg: "cron is down!"
+      success_msg: "cron is up!"
