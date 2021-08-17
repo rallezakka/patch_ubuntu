@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+    - name: is ssh already running?
+      shell: service ssh status warn=false
+      register: _svc_ssh
+      failed_when: _svc_ssh.rc != 0 and ("unrecognized service" not in _svc_ssh.stderr)
+      ignore_errors: true
+
+    - name: restart ssh if not running
+      service: name=ssh state=started
+      when:  _svc_ssh.rc != 0 and ("unrecognized service" not in _svc_ssh.stderr) 
