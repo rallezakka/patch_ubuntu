@@ -4,6 +4,6 @@
   gather_facts: yes
   tasks:
         - name: Start service cron, if not started
-          service:
+          systemd:
             name: cron
             state: started
