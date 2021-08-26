@@ -1,0 +1,17 @@
+---
+
+- hosts: all
+  tasks:
+    - name: Check if all the systems responding to ssh
+      local_action:
+        module: wait_for
+           host={{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}
+           port=22
+           search_regex=OpenSSH
+           delay=15
+           timeout=300
+           state=started  
+    - name: Check the uptime of the servers
+      shell: uptime
+      register: Uptime
+    - debug: var=Uptime
