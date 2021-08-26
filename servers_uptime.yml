@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: "{{ env }}"
   tasks:
     - name: Check if all the systems responding to ssh
       local_action:
