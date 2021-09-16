@@ -1,0 +1,8 @@
+---
+
+- hosts: "{{ env }}"
+  gather_facts: true
+  tasks:
+    - shell: cat /proc/sys/kernel/hostname
+    - ping:
+#    - debug: var=ansible_facts
