@@ -19,4 +19,4 @@
       systemd:
         name: cron
         state: restarted
-      when: fail_msg
+      when: fail_msg: "cron is down!"
